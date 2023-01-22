@@ -31,12 +31,12 @@ def send_email(message):
     port = 465
 
     # Sender's email ID
-    username = "jeetdesai25@gmail.com"
+    username = ""
     # Sender's gmail app password
     password = os.getenv("PASSWORD")
 
     # Reciever Email ID
-    receiver = "hetansheeshah@gmail.com"
+    receiver = ""
     context = ssl.create_default_context()
 
     with smtplib.SMTP_SSL(host, port, context=context) as server:
