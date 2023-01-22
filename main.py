@@ -23,6 +23,7 @@ class Event:
         value = extractor.extract(source)["tours"]
         return value
 
+
 class Email:
     def send(self, message):
         host = "smtp.gmail.com"
@@ -42,8 +43,8 @@ class Email:
             server.sendmail(username, receiver, message)
         print("Email was sent!")
 
-class Database:
 
+class Database:
     def __init__(self, database_path):
         self.connection = sqlite3.connect(database_path)
 
@@ -54,14 +55,14 @@ class Database:
         cursor.execute("INSERT INTO events VALUES(?,?,?)", row)
         self.connection.commit()
 
-
     def read(self, extracted):
         row = extracted.split(",")
         row = [item.strip() for item in row]
         band, city, date = row
         cursor = self.connection.cursor()
         cursor.execute(
-            "SELECT * FROM events WHERE band=? AND city=? AND date=?", (band, city, date)
+            "SELECT * FROM events WHERE band=? AND city=? AND date=?",
+            (band, city, date),
         )
         rows = cursor.fetchall()
         return rows
@@ -83,7 +84,7 @@ if __name__ == "__main__":
                 body = ""
                 body = "Subject: Event" + "\n" + body + "Hey, new event was found!"
                 body = body.encode("utf-8")
-                email=Email()
+                email = Email()
                 email.send(message=body)
 
         time.sleep(2)
