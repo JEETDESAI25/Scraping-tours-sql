@@ -2,7 +2,7 @@ import requests
 import selectorlib
 import smtplib, ssl
 import os
-
+import time
 
 URL = "http://programmer100.pythonanywhere.com/tours/"
 HEADERS = {
@@ -52,18 +52,22 @@ def read (extracted):
 
 
 if __name__ == "__main__":
-    scraped = scrape(URL)
-    extracted = extract(scraped)
-    print(extracted)
+    while True:
+        scraped = scrape(URL)
+        extracted = extract(scraped)
+        print(extracted)
 
-    content = read(extracted)
-    if extracted != "No upcoming tours":
-        if extracted not in content:
-            store(extracted)
-            body = ""
-            body = ("Subject: Event" + "\n" + body + "Hey, new event was found!")
-            body = body.encode("utf-8")
-            send_email(message=body)
+        content = read(extracted)
+        if extracted != "No upcoming tours":
+            if extracted not in content:
+                store(extracted)
+                body = ""
+                body = ("Subject: Event" + "\n" + body + "Hey, new event was found!")
+                body = body.encode("utf-8")
+                send_email(message=body)
     
+        time.sleep(360)    
             
-            
+
+"INSERT INTO events VALUES ('Tigers', 'Tiger City', '2088.10.14')"
+"SELECT * FROM events WHERE date='2088.10.14'"
